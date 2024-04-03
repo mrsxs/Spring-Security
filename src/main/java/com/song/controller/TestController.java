@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * 测试控制器
  *
  * @author song
- * @date 2024/03/31
+ * @Date 2021/04/03
  */
 @Controller
 public class TestController {
@@ -25,7 +25,7 @@ public class TestController {
 
     @RequestMapping("/test2")
     @ResponseBody
-    @PreAuthorize("hasAuthority('test2')")
+    @PreAuthorize("@ex.hasAuthority('test2')")
     public String test2() {
         return "test message2";
     }
