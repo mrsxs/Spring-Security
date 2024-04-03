@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * 测试控制器
  *
  * @author song
- * @Date 2021/04/03
+ * 2021/04/03
  */
 @Controller
 public class TestController {
