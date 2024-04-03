@@ -11,7 +11,8 @@ import java.util.Map;
 public class JwtUtils {
 
     private static String signKey = "asdhiusahdjianshkljdnkalskaiosdioasjiodsasadsadasdsawqewq";
-    private static Long expire = 43200000L;
+   //1小时
+    private static Long expire = 1000L * 60 * 60;
 
     /**
      * 生成JWT令牌

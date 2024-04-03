@@ -1,13 +1,12 @@
 package com.song.pojo;
 
+import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import java.io.Serializable;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
-
-import java.io.Serializable;
 
 /**
  * <p>
@@ -15,7 +14,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author song
- * @since 2024-04-01
+ * @since 2024-04-03
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -28,17 +27,9 @@ public class User implements Serializable {
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
-    private String username;
+    private String name;
 
     private String password;
-
-    private String email;
-
-    private String phone;
-
-    private String address;
-
-    private String role;
 
 
 }

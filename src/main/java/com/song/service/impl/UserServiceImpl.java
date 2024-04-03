@@ -20,9 +20,7 @@ import org.springframework.stereotype.Service;
 import java.util.Objects;
 
 /**
- * <p>
- * 服务实现类
- * </p>
+
  *
  * @author song
  * @since 2024-04-01
@@ -39,7 +37,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     @Override
     public Result login(User user) {
         // authentication 进行认证
-        Authentication authenticate = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword()));
+        Authentication authenticate = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getName(), user.getPassword()));
         //如果没通过 给出提示
         if (Objects.isNull(authenticate)) {
             return Result.fail("用户名或密码错误");

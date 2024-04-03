@@ -39,6 +39,7 @@ public class JwtAuthenticationTokenFiler extends OncePerRequestFilter {
         try {
             Claims claims = JwtUtils.parseJWT(token);
             uuid = claims.getSubject();
+
         } catch (Exception e) {
             throw new RuntimeException("token非法");
         }
@@ -46,14 +47,14 @@ public class JwtAuthenticationTokenFiler extends OncePerRequestFilter {
         //从redis中获取用户信息
         String s = redisTemplate.opsForValue().get("login:" + uuid);
         if (Objects.isNull(s)) {
-            throw new RuntimeException("token非法");
+            throw new RuntimeException("用户未登录");
         }
         //转成对象
         LoginUser loginUser = JSONUtil.toBean(s, LoginUser.class);
         //将用户信息存入SecurityContextHolder中
         //创建UsernamePasswordAuthenticationToken 必须使用三个参数的构造方法 存入认证信息
-        UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(loginUser, null, null);
-        SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
+        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(loginUser, null, loginUser.getAuthorities());
+        SecurityContextHolder.getContext().setAuthentication(authenticationToken);
         //放行
         filterChain.doFilter(request, response);
 
