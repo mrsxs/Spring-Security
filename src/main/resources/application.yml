@@ -14,9 +14,11 @@ spring:
     username: root
     password: 3100880856
     driver-class-name: com.mysql.cj.jdbc.Driver
+
   pattern:
     console: '%clr(%d{yyyy-MM-dd HH:mm:ss}){faint} %clr(%-5level){yellow} %clr(%logger{15}){cyan} - %msg%n'
 logging:
   level:
     com.song: debug
-
+mybatis-plus:
+  mapper-locations: classpath:mapper/*.xml

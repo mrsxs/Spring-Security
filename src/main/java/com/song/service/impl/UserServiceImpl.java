@@ -18,6 +18,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 
 /**
 
@@ -44,7 +45,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         }
         //如果通过 返回token
         LoginUser principal = (LoginUser) authenticate.getPrincipal();
-        String userId = principal.getUser().getId().toString();
         String uuid = StrUtil.uuid();
         principal.setToken(uuid);
         String token = JwtUtils.generateJwtWithSubject(uuid);
@@ -52,6 +52,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
 
         //把完整的用户信息返回存入redis
         redisTemplate.opsForValue().set("login:" + uuid, jsonStr);
+        // 设置过期时间
+        redisTemplate.expire("login:" + uuid, 30, TimeUnit.MINUTES);
         return Result.ok(token, "登录成功");
     }
 
@@ -60,7 +62,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         //获取当前登录用户
         LoginUser principal = (LoginUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String uuid = principal.getToken();
-        System.out.println("uuid = " + uuid);
+
         //删除redis中的用户信息
         redisTemplate.delete("login:" + uuid);
 

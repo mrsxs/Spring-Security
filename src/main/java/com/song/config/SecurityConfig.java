@@ -1,6 +1,8 @@
 package com.song.config;
 
 import com.song.filter.JwtAuthenticationTokenFiler;
+import com.song.hander.AccessDeniedHandlerImpl;
+import com.song.hander.AuthenticationEntryPointImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -25,6 +27,9 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final JwtAuthenticationTokenFiler jwtAuthenticationTokenFiler;
+    private final AccessDeniedHandlerImpl accessDeniedHandler;
+    private final AuthenticationEntryPointImpl authenticationEntryPoint;
+
     /**
      * 身份验证管理器bean
      *
@@ -54,6 +59,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         //添加jwt过滤器
         http.addFilterBefore(jwtAuthenticationTokenFiler, UsernamePasswordAuthenticationFilter.class);
+        //配置异常处理
+        http.exceptionHandling().accessDeniedHandler(accessDeniedHandler).authenticationEntryPoint(authenticationEntryPoint);
+        //跨域
+        http.cors();
 
     }
 

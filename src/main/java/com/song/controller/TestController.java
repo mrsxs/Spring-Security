@@ -18,22 +18,28 @@ public class TestController {
 
     @RequestMapping("/test")
     @ResponseBody
-    @PreAuthorize("hasAuthority('admin')")
+    @PreAuthorize("hasAuthority('test')")
     public String test() {
         return "test message";
     }
 
     @RequestMapping("/test2")
     @ResponseBody
-    @PreAuthorize("hasAuthority('user')")
+    @PreAuthorize("hasAuthority('test2')")
     public String test2() {
         return "test message2";
     }
 
     @RequestMapping("/test3")
     @ResponseBody
+    @PreAuthorize("hasAuthority('test3')")
     public String test3() {
         return "test message3";
+    }
+    @RequestMapping("/test4")
+    @ResponseBody
+    public String test4() {
+        return "test message4";
     }
 
 }

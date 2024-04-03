@@ -1,6 +1,7 @@
 package com.song.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.song.mapper.MenuMapper;
 import com.song.mapper.UserMapper;
 import com.song.pojo.LoginUser;
 import com.song.pojo.User;
@@ -10,8 +11,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -26,7 +25,7 @@ import java.util.Objects;
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
     private final UserMapper userMapper;
-
+ private final MenuMapper menuMapper;
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         // 查询用户
@@ -39,7 +38,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
         //查询对应的权限
         //todo 查询用户权限
-        List<String> list = new ArrayList<>(Arrays.asList("user"));
+        List<String> list = menuMapper.selectPermissionByUserId(user.getId());
 
         //封装userDetails 返回
 

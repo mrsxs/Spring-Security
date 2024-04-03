@@ -1,5 +1,6 @@
 package com.song;
 
+import com.song.mapper.MenuMapper;
 import com.song.service.IUserService;
 import com.song.utlis.JwtUtils;
 import io.jsonwebtoken.Claims;
@@ -17,6 +18,8 @@ class DemoApplicationTests {
     @Autowired
     private IUserService userService;
 
+    @Autowired
+    private MenuMapper menuMapper;
     @Test
     void contextLoads() {
         System.out.println(userService.list());
@@ -35,5 +38,10 @@ class DemoApplicationTests {
 
         Claims claims = JwtUtils.parseJWT("eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJjZWMzMzRjYy1iOGZhLTQ5ZTktOTQxYy0xMGE4NWFlNThmNWIiLCJpYXQiOjE3MTIwNDMzNTEsImV4cCI6MTcxMjA0MzM1NH0.znvB-mGJC_KuvwceW_klDAZKlBRPB9MQ_FiyRkgs5fU");
         System.out.println(claims.getSubject());
+    }
+
+    @Test
+    void ss() {
+        System.out.println(menuMapper.selectPermissionByUserId(1));
     }
 }
