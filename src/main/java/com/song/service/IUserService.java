@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.song.pojo.Result;
 import com.song.pojo.User;
 
+import javax.servlet.http.HttpServletResponse;
+
 /**
  * <p>
  *  服务类
@@ -15,7 +17,7 @@ import com.song.pojo.User;
 public interface IUserService extends IService<User> {
 
 
-    Result login(User user);
+    Result login(User user, HttpServletResponse response);
 
     /**
      * 注销
